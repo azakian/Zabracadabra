@@ -1,0 +1,22 @@
+# Lefthook configuration
+# https://github.com/evilmartians/lefthook
+
+pre-commit:
+  commands:
+    front-eslint:
+      # Run ESLint on staged TypeScript and HTML files in src/
+      glob: "front/src/**/*.{ts,html}"
+      root: front
+      run: npx eslint --fix --quiet {staged_files}
+
+    front-stylelint:
+      # Run Stylelint on staged CSS and SCSS files
+      glob: "front/**/*.{css,scss}"
+      root: front
+      run: npx stylelint --fix {staged_files}
+
+    front-prettier:
+      # Run Prettier on staged TypeScript, SCSS, and HTML files
+      glob: "front/**/*.{ts,scss,html}"
+      root: front
+      run: npx prettier --write {staged_files}

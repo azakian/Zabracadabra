@@ -1,0 +1,23 @@
+<nav class="pager" aria-label="Pagination">
+  <button
+    type="button"
+    class="pager-btn"
+    [disabled]="!pager().prev"
+    (click)="previousPage.emit()"
+    aria-label="Page précédente"
+  >
+    ← Précédent
+  </button>
+  <span class="page-info" aria-current="page">
+    {{ `${pager().aggregatedCount} / ${pager().totalCount}` }}
+  </span>
+  <button
+    type="button"
+    class="pager-btn"
+    [disabled]="!pager().next"
+    (click)="nextPage.emit()"
+    aria-label="Page suivante"
+  >
+    Suivant →
+  </button>
+</nav>

@@ -1,0 +1,54 @@
+<div class="browse-board-games">
+  <header class="page-header">
+    <div class="header-content">
+      <h1>Jeux de société</h1>
+      <p class="subtitle">Explorez notre collection de jeux</p>
+    </div>
+    <div class="header-actions">
+      <a routerLink="/code-of-conduct" class="conduct-btn" aria-label="Code de bonne conduite">
+        📜 Code de conduite
+      </a>
+      <app-basket-button />
+    </div>
+  </header>
+
+  <div class="page-layout">
+    <app-ranking [topGames]="store.topBoardGamesResource.value()" />
+
+    <section class="page-content">
+      <div class="search-section">
+        <label for="search-input" class="visually-hidden">Rechercher un jeu</label>
+        <input
+          id="search-input"
+          type="text"
+          class="search-input"
+          placeholder="Rechercher un jeu..."
+          [ngModel]="store.clue()"
+          (ngModelChange)="store.updateClue($event)"
+          aria-label="Rechercher un jeu de société"
+        />
+      </div>
+
+      @let pager = store.boardGamesResource.value();
+      @if (store.boardGamesResource.isLoading()) {
+        <div class="loading" aria-busy="true" aria-label="Chargement en cours">
+          <p>Chargement...</p>
+        </div>
+      } @else if (pager && pager.data.length > 0) {
+        <app-board-game-table
+          [boardGames]="pager.data"
+          (selectGame)="store.navigateToGameDetail($event)"
+        />
+        <app-pager
+          [pager]="pager.meta"
+          (previousPage)="store.previousPage()"
+          (nextPage)="store.nextPage()"
+        />
+      } @else {
+        <div class="empty-state" role="status">
+          <p>Aucun jeu trouvé</p>
+        </div>
+      }
+    </section>
+  </div>
+</div>

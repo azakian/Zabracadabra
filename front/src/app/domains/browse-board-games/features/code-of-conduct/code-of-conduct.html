@@ -1,0 +1,114 @@
+<article class="code-of-conduct">
+  <header class="page-header">
+    <div class="header-content">
+      <a routerLink="/games" class="back-link" aria-label="Retour à la liste des jeux">
+        ← Retour à la liste
+      </a>
+      <h1>📜 Code de bonne conduite</h1>
+    </div>
+  </header>
+
+  <section class="page-content">
+    <div class="content-section">
+      <h2>Bienvenue dans notre communauté</h2>
+      <p class="intro">
+        Ce code de bonne conduite définit les règles et les valeurs que nous partageons tous au sein
+        de notre communauté de passionnés de jeux de société.
+      </p>
+
+      <div class="enigma-box">
+        <h3>🔮 Message mystérieux ( Enigme pour réponse 4 )</h3>
+        <p class="enigma-text">
+          La croyance selon laquelle le partage de l'information<br />
+          est un bien puissamment positif, et que c'est un droit et une obligation d'éthique de<br />
+          partager leur niveau d'expertise en écrivant des programmes gratuitement en facilitant
+          l'<br />
+          accès aux informations et aux codes sources quand c'est possible. La croyance<br />
+          selon laquelle l'intrusion<br />
+          système "pour le plaisir" est éthiquement OK tant qu'il ne comm-<br />
+          et pas de vol, vandalisme, ou viol de confid-<br />
+          entialité. Ces deux principes d'éthique<br />
+          sont largement mais pas universellement acceptes parmi les hackers. Presque<br />
+          tous adhèrent au sens 1 de l'éthique, et diffusent leur savoir. D'autres<br />
+          revendiquent le droit de savoir sur TOUS les autres types d'informations tout<br />
+          en condamnant les droits d'auteurs .Le deuxième sens est plus controversant: certain<br />
+          personnes considèrent le fait de s'introduire, "cracker", contre l'éthique. Le fait d'<br />
+          adhérer a cette éthique a au moins le mérite de modérer le comportement de ces gens qui se
+          cons-<br />
+          idèrent comme des crackers 'bénins'. De ce point de vue, on peut établir une compa-<br />
+          raison avec une haute forme de courtoisie du hacking quand a) il pénètre le système et
+          b)<br />
+          explique au sysop, de préférence par émail d'un compte super user, comment il est entré et
+          comment fermer la brèche -- agissant bénévolement et sans sollicitation.<br />
+          <br /><br />
+
+          Le point commun a cette étique est que tous les hackers expriment le vœu de partager leurs
+          trucs et astuces, software, et leurs ressources avec d'autres hackers. C'est grâce a un
+          tel traité que des monstrueux réseaux de coopération tels que Usenet, Fidonet et Internet
+          peuvent fonctionner sans contrôle central. Ils sont tout les deux reliés et renforcent le
+          sens de la communauté; ce peut être un des biens les plus inestimable offert par la
+          communauté des hackers.
+        </p>
+
+        <div class="password-section">
+          <label for="secret-password" class="password-label">Attestation sur l'honneur</label>
+          <div class="password-input-wrapper">
+            <input
+              #answerInput
+              id="secret-password"
+              type="text"
+              class="password-input"
+              placeholder="Entrez votre réponse"
+            />
+          </div>
+          <button type="button" class="submit-btn" (click)="store.tryAnswer(answerInput.value)">
+            J'ai bien compris
+          </button>
+
+          @if (store.state(); as result) {
+            <div
+              class="callout"
+              [class.callout-success]="result.isValid"
+              [class.callout-error]="!result.isValid"
+            >
+              @if (result.isValid) {
+                <span class="callout-icon">✅</span>
+                <span>{{ result.message }}</span>
+              } @else {
+                <span class="callout-icon">❌</span>
+                <span>{{ result.message }}</span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <h2 class="margin-top">Nos valeurs</h2>
+      <ul class="values-list">
+        <li>
+          <strong>Respect</strong> — Traitez tous les membres avec courtoisie et bienveillance.
+        </li>
+        <li>
+          <strong>Fair-play</strong> — Jouez dans l'esprit du jeu, acceptez la victoire comme la
+          défaite avec grâce.
+        </li>
+        <li>
+          <strong>Inclusion</strong> — Accueillez les nouveaux joueurs et partagez votre passion.
+        </li>
+        <li><strong>Patience</strong> — Prenez le temps d'expliquer les règles aux débutants.</li>
+        <li>
+          <strong>Convivialité</strong> — Le jeu de société est avant tout un moment de partage.
+        </li>
+      </ul>
+
+      <h2 class="margin-top">Règles de conduite</h2>
+      <ol class="rules-list">
+        <li>Soyez ponctuel aux sessions de jeu organisées.</li>
+        <li>Manipulez le matériel de jeu avec soin.</li>
+        <li>Évitez les spoilers sur les jeux à scénario.</li>
+        <li>Respectez les choix stratégiques des autres joueurs.</li>
+        <li>Gardez une ambiance positive même dans les moments de tension ludique.</li>
+      </ol>
+    </div>
+  </section>
+</article>

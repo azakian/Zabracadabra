@@ -1,0 +1,85 @@
+.hex-map {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hex-tile {
+  cursor: default;
+  transition: transform 0.2s ease;
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover .hex-polygon {
+      filter: brightness(1.2);
+      stroke: #ffd700;
+      stroke-width: 3;
+    }
+  }
+
+  &.wrong-guess {
+    .hex-polygon {
+      opacity: 0.5;
+    }
+  }
+
+  &.solution {
+    .hex-polygon {
+      stroke: #ffd700;
+      stroke-width: 4;
+      filter: brightness(1.3);
+    }
+  }
+}
+
+.hex-polygon {
+  stroke: #333;
+  stroke-width: 1.5;
+  transition:
+    filter 0.2s ease,
+    stroke 0.2s ease,
+    stroke-width 0.2s ease;
+
+  &.bear-territory {
+    stroke: #000;
+    stroke-width: 3;
+  }
+
+  &.cougar-territory {
+    stroke: #d2691e;
+    stroke-width: 3;
+  }
+}
+
+.structure-icon {
+  font-size: 12px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.wrong-marker {
+  font-size: 16px;
+  fill: #dc3545;
+  font-weight: bold;
+  pointer-events: none;
+  user-select: none;
+}
+
+.solution-marker {
+  font-size: 18px;
+  pointer-events: none;
+  user-select: none;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}

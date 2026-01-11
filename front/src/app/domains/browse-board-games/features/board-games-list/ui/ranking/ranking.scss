@@ -1,0 +1,117 @@
+:host {
+  display: block;
+}
+
+.ranking-panel {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  overflow: hidden;
+  position: sticky;
+  top: 2rem;
+}
+
+.ranking-header {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #fff;
+  padding: 1rem 1.25rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+}
+
+.ranking-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ranking-item {
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ranking-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background: #f8f9fa;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: -2px;
+  }
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  background: #e5e7eb;
+  color: #4b5563;
+
+  &[data-rank='1'] {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #fff;
+  }
+
+  &[data-rank='2'] {
+    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+    color: #fff;
+  }
+
+  &[data-rank='3'] {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+    color: #fff;
+  }
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.game-name {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.game-categories {
+  font-size: 0.75rem;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.empty-ranking {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.875rem;
+}

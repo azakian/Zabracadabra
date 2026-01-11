@@ -1,0 +1,131 @@
+<div class="basket-page">
+  <header class="page-header">
+    <button
+      type="button"
+      class="back-button"
+      (click)="goBack()"
+      aria-label="Retour à la page précédente"
+    >
+      ← Retour
+    </button>
+    <h1>Mon Panier</h1>
+    <p class="subtitle">{{ basketStore.totalItems() }} article(s)</p>
+  </header>
+
+  @if (basketStore.paymentResult(); as result) {
+    <div class="callout" [class.success]="result.is_valid" [class.error]="!result.is_valid">
+      @if (result.is_valid) {
+        <span class="callout-icon">✓</span>
+        <p>{{ result.response ?? 'Paiement effectué avec succès !' }}</p>
+      } @else {
+        <span class="callout-icon">✗</span>
+        <p>{{ result.hint ?? 'Paiement refusé. Veuillez réessayer.' }}</p>
+      }
+      <button type="button" class="callout-close" (click)="basketStore.clearPaymentResult()">
+        ×
+      </button>
+    </div>
+    @if (result.is_valid) {
+      <div class="reward-image-container">
+        <p>🎉 <strong>Bravo, tu as fait le plus dur !</strong> 🎉</p>
+        <p>
+          Un dernier petit effort et en combinant toutes les infos des indices précédents (à
+          retrouver dans la conv 📱), tu peux me retrouver !
+        </p>
+        <p>
+          Au pire, tu m'appelleras samedi 😅📞
+          <br />
+        </p>
+        <img class="reward-image" [src]="imageService.getPublicUrl()" alt="Récompense" />
+      </div>
+    }
+  }
+
+  <section class="page-content">
+    @if (basketStore.isEmpty()) {
+      <div class="empty-state" role="status">
+        <p>Votre panier est vide</p>
+        <a routerLink="/board-games" class="browse-link">Parcourir les jeux</a>
+      </div>
+    } @else {
+      <ul class="basket-list" aria-label="Articles du panier">
+        @for (item of basketStore.basketItems(); track item.game.id) {
+          <li class="basket-item">
+            <div class="item-info">
+              <h2 class="item-name">{{ item.game.name }}</h2>
+              <p class="item-description">{{ item.game.description }}</p>
+            </div>
+
+            <div class="item-actions">
+              <div class="quantity-controls">
+                <button
+                  type="button"
+                  class="quantity-btn"
+                  (click)="basketStore.removeGameId(item.game.id)"
+                  [attr.aria-label]="'Réduire la quantité de ' + item.game.name"
+                >
+                  −
+                </button>
+                <span class="quantity" aria-label="Quantité">{{ item.quantity }}</span>
+                <button
+                  type="button"
+                  class="quantity-btn"
+                  (click)="basketStore.addGameId(item.game.id)"
+                  [attr.aria-label]="'Augmenter la quantité de ' + item.game.name"
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                type="button"
+                class="remove-btn"
+                (click)="basketStore.removeItem(item.game.id)"
+                [attr.aria-label]="'Supprimer ' + item.game.name + ' du panier'"
+              >
+                Supprimer
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+
+      <footer class="basket-footer">
+        <div class="promo-section">
+          <label for="promo-code" class="visually-hidden">Code promo</label>
+          <div class="promo-input-group">
+            <input
+              id="promo-code"
+              type="text"
+              class="promo-input"
+              placeholder="Code promo"
+              [ngModel]="promoCode()"
+              (ngModelChange)="promoCode.set($event)"
+              aria-label="Entrer un code promo"
+            />
+            <button
+              type="button"
+              class="apply-promo-btn"
+              (click)="applyPromoCode()"
+              [disabled]="!promoCode()"
+            >
+              Appliquer
+            </button>
+          </div>
+          <app-promo-code-status [promotion]="promotionStore.promotion()" />
+        </div>
+
+        <div class="footer-actions">
+          <button type="button" class="clear-btn" (click)="basketStore.clearBasket()">
+            Vider le panier
+          </button>
+          <button type="button" class="checkout-btn" (click)="openPaymentModal()">Commander</button>
+        </div>
+      </footer>
+    }
+  </section>
+</div>
+
+@if (showPaymentModal()) {
+  <app-payment-modal (close)="closePaymentModal()" (confirmPayment)="onPaymentConfirmed($event)" />
+}

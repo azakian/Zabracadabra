@@ -1,0 +1,90 @@
+<svg
+  [attr.viewBox]="'0 0 ' + svgWidth() + ' ' + svgHeight()"
+  preserveAspectRatio="xMidYMid meet"
+  class="hex-map"
+  role="img"
+  aria-label="Carte du Cryptide"
+>
+  <!-- Terrain legend -->
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  @for (tile of tiles(); track tile.coordinate.row + '-' + tile.coordinate.col) {
+    @let center = getHexCenter(tile);
+    @let points = getHexPoints(center.x, center.y);
+
+    <g
+      class="hex-tile"
+      [class.clickable]="!isDisabled() && !isWrongGuess(tile)"
+      [class.wrong-guess]="isWrongGuess(tile)"
+      [class.solution]="isSolution(tile)"
+      (click)="onHexClick(tile)"
+      role="button"
+      [attr.aria-label]="
+        getTerrainLabel(tile.terrain) +
+        (tile.animalTerritory ? ' - Territoire ' + getAnimalLabel(tile.animalTerritory) : '') +
+        ' - Ligne ' +
+        (tile.coordinate.row + 1) +
+        ', Colonne ' +
+        (tile.coordinate.col + 1)
+      "
+      [attr.aria-disabled]="isDisabled() || isWrongGuess(tile)"
+    >
+      <!-- Hex shape -->
+      <polygon
+        [attr.points]="points"
+        [attr.fill]="getTerrainColor(tile.terrain)"
+        class="hex-polygon"
+        [class.bear-territory]="tile.animalTerritory === 'bear'"
+        [class.cougar-territory]="tile.animalTerritory === 'cougar'"
+      />
+
+      <!-- Structure icon if present -->
+      @if (tile.hasStructure) {
+        <text
+          [attr.x]="center.x"
+          [attr.y]="center.y + 5"
+          class="structure-icon"
+          text-anchor="middle"
+          dominant-baseline="middle"
+        >
+          {{ getStructureIcon(tile.hasStructure) }}
+        </text>
+      }
+
+      <!-- Wrong guess marker -->
+      @if (isWrongGuess(tile)) {
+        <text
+          [attr.x]="center.x"
+          [attr.y]="center.y + 5"
+          class="wrong-marker"
+          text-anchor="middle"
+          dominant-baseline="middle"
+        >
+          ✗
+        </text>
+      }
+
+      <!-- Solution marker -->
+      @if (isSolution(tile)) {
+        <text
+          [attr.x]="center.x"
+          [attr.y]="center.y + 5"
+          class="solution-marker"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          filter="url(#glow)"
+        >
+          🦎
+        </text>
+      }
+    </g>
+  }
+</svg>

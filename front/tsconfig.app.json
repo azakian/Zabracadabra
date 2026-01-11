@@ -7,9 +7,9 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/app/domains/browse-board-games/features/basket/basket.servicets",
+    "src/app/domains/browse-board-games/service/answer.servicets"
   ],
-  "exclude": [
-    "src/**/*.spec.ts"
-  ]
+  "exclude": ["src/**/*.spec.ts"]
 }

@@ -1,0 +1,32 @@
+<table role="grid" aria-label="Liste des jeux de société">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Catégories</th>
+      <th scope="col">Prix</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (game of boardGames(); track game.id) {
+      <tr
+        class="clickable-row"
+        tabindex="0"
+        role="row"
+        (click)="selectGame.emit(game)"
+        (keydown.enter)="selectGame.emit(game)"
+        (keydown.space)="selectGame.emit(game)"
+        [attr.aria-label]="'Voir les détails de ' + game.name"
+      >
+        <td>{{ game.name }}</td>
+        <td class="description-cell">{{ game.description }}</td>
+        <td>
+          @for (category of game.categories; track category; let last = $last) {
+            {{ category | categoryLabel }}{{ last ? '' : ', ' }}
+          }
+        </td>
+        <td class="price-cell">{{ game.price | currency: 'EUR' : 'symbol' : '1.0-0' }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

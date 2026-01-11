@@ -1,0 +1,43 @@
+.basket-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgb(255 255 255 / 20%);
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+
+  &:hover {
+    background: rgb(255 255 255 / 30%);
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: #e74c3c;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

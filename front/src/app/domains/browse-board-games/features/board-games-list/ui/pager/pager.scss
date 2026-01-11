@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  margin-top: 1.5rem;
+}
+
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pager-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #667eea;
+  background: #fff;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: #667eea;
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.page-info {
+  font-size: 0.9375rem;
+  color: #555;
+  font-weight: 500;
+}

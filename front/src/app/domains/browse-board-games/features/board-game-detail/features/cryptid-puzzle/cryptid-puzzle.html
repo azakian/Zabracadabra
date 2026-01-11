@@ -1,0 +1,96 @@
+<section class="cryptid-puzzle">
+  <header class="puzzle-header">
+    <h2>🦎 Trouvez le Cryptide ! (Enigme pour réponse 3)</h2>
+    <p class="puzzle-intro">
+      Utilisez les indices pour trouver la case où se cache le Cryptide. Une seule case correspond à
+      tous les indices !
+    </p>
+  </header>
+
+  <div class="puzzle-content">
+    <div class="map-section">
+      <app-hex-map
+        [tiles]="config.map"
+        [wrongGuesses]="store.wrongGuesses()"
+        [isDisabled]="store.isGameOver()"
+        [solution]="store.solution()"
+        (hexClicked)="onHexClicked($event)"
+      />
+
+      <div class="map-legend">
+        <div class="legend-item">
+          <span class="legend-color forest"></span>
+          <span>Forêt</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color water"></span>
+          <span>Eau</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color desert"></span>
+          <span>Désert</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color swamp"></span>
+          <span>Marais</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color mountain"></span>
+          <span>Montagne</span>
+        </div>
+        <div class="legend-item">
+          <span>🗿</span>
+          <span>Pierre levée</span>
+        </div>
+        <div class="legend-item">
+          <span>🏚️</span>
+          <span>Cabane</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-animal bear"></span>
+          <span>Territoire Ours</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-animal cougar"></span>
+          <span>Territoire Puma</span>
+        </div>
+      </div>
+
+      <div class="attempts-info">
+        @if (store.status() === 'playing') {
+          <span class="attempts-remaining">
+            Tentatives restantes : {{ store.attemptsRemaining() }}
+          </span>
+        } @else if (store.status() === 'won') {
+          <span class="status-won">{{ store.response() }}</span>
+        } @else {
+          <span class="status-lost">😔 Perdu ! Le Cryptide s'est échappé...</span>
+        }
+      </div>
+
+      <!-- @if (store.isGameOver()) {
+        <button type="button" class="reset-btn" (click)="resetPuzzle()">🔄 Rejouer</button>
+      } -->
+    </div>
+
+    <div class="hints-section">
+      <h3>Indices</h3>
+      <div class="hints-grid">
+        @for (hint of config.hints; track hint.id) {
+          <app-hint-card
+            [hint]="hint"
+            [isRevealed]="store.hiddenHintRevealed()"
+            (unlockRequested)="openEnigma()"
+          />
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-enigma-modal
+  [enigma]="config.enigma"
+  [isOpen]="isEnigmaOpen()"
+  (solved)="onEnigmaSolved()"
+  (closed)="closeEnigma()"
+/>

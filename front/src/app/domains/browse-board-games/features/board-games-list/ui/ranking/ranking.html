@@ -1,0 +1,25 @@
+<aside class="ranking-panel">
+  <header class="ranking-header">
+    <h2>🏆 Top Jeux 2025</h2>
+  </header>
+
+  <ol class="ranking-list" aria-label="Classement des meilleurs jeux">
+    @for (game of topGames(); track game.id; let i = $index) {
+      <li class="ranking-item">
+        <a [routerLink]="['/games', game.id]" class="ranking-link">
+          <span class="rank" [attr.data-rank]="i + 1">{{ i + 1 }}</span>
+          <div class="game-info">
+            <span class="game-name">{{ game.name }}</span>
+            <span class="game-categories">
+              @for (category of game.categories; track category; let last = $last) {
+                {{ category | categoryLabel }}{{ last ? '' : ', ' }}
+              }
+            </span>
+          </div>
+        </a>
+      </li>
+    } @empty {
+      <li class="empty-ranking">Aucun jeu dans le classement</li>
+    }
+  </ol>
+</aside>

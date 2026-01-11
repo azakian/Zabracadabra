@@ -1,0 +1,15 @@
+<div class="hint-card" [class.hidden-hint]="hint().isHidden && !isRevealed()">
+  <div class="hint-number">Indice {{ hint().id }}</div>
+
+  @if (!hint().isHidden || isRevealed()) {
+    <p class="hint-text">{{ hint().text }}</p>
+  } @else {
+    <div class="locked-hint">
+      <span class="lock-icon">🔒</span>
+      <p class="locked-text">Cet indice est verrouillé</p>
+      <button type="button" class="unlock-btn" (click)="onUnlockClick()">
+        Je veux me creuser la tête
+      </button>
+    </div>
+  }
+</div>

@@ -5,8 +5,14 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "node scripts/set-env.js && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "format": "prettier --write \"src/**/*.{ts,html,css,scss,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,json}\"",
+    "prepare": "cd ../ && lefthook install"
   },
   "prettier": {
     "printWidth": 100,
@@ -36,8 +42,17 @@
     "@angular/build": "^21.0.4",
     "@angular/cli": "^21.0.4",
     "@angular/compiler-cli": "^21.0.0",
+    "angular-eslint": "21.1.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
     "jsdom": "^27.1.0",
+    "lefthook": "^2.0.12",
+    "prettier": "^3.7.4",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard-scss": "^16.0.0",
     "typescript": "~5.9.2",
+    "typescript-eslint": "8.47.0",
     "vitest": "^4.0.8"
   }
 }

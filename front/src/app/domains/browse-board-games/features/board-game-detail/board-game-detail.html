@@ -1,0 +1,99 @@
+@if (boardGameDetail.isLoading()) {
+  <div class="loading" aria-busy="true" aria-label="Chargement en cours">
+    <p>Chargement...</p>
+  </div>
+} @else if (boardGameDetail.value(); as game) {
+  <article class="board-game-detail">
+    <header class="board-game-header">
+      <div class="header-content">
+        <a routerLink="/board-games" class="back-link" aria-label="Retour à la liste des jeux">
+          ← Retour à la liste
+        </a>
+        <h1>{{ game.name }}</h1>
+      </div>
+      <app-basket-button />
+    </header>
+
+    <section class="board-game-content">
+      <div class="board-game-info">
+        <h2>Description</h2>
+        <p class="description">{{ game.description }}</p>
+
+        <h2 class="margin-top">Explication</h2>
+        <p class="explanation" [innerHTML]="game.explanation"></p>
+
+        <div class="video-section">
+          <h2 class="margin-top">Vidéo de présentation</h2>
+          <div class="video-container">
+            <iframe
+              [src]="safeYoutubeUrl()"
+              title="Vidéo de présentation de {{ game.name }}"
+              frameborder="0"
+              allow="
+                accelerometer;
+                autoplay;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <aside class="board-game-categories">
+        <h2>Catégories</h2>
+        @if (game.categories.length > 0) {
+          <ul class="category-list" aria-label="Liste des catégories">
+            @for (category of game.categories; track category) {
+              <li class="category-tag">{{ category | categoryLabel }}</li>
+            }
+          </ul>
+        } @else {
+          <p>Aucune catégorie</p>
+        }
+
+        <div class="price-display">
+          <span class="price-label">Prix</span>
+          <span class="price-value">{{ game.price | currency: 'EUR' : 'symbol' : '1.0-0' }}</span>
+        </div>
+
+        <div class="basket-actions">
+          @if (basketStore.hasItem(game.id)) {
+            <div class="in-basket-info">
+              <span>Dans le panier ({{ basketStore.getItemQuantity(game.id) }})</span>
+              <button
+                type="button"
+                class="add-more-btn"
+                (click)="basketStore.addItem(game)"
+                aria-label="Ajouter un exemplaire supplémentaire de {{ game.name }}"
+              >
+                + Ajouter
+              </button>
+            </div>
+          } @else {
+            <button
+              type="button"
+              class="add-to-basket-btn"
+              (click)="basketStore.addItem(game)"
+              aria-label="Ajouter {{ game.name }} au panier"
+            >
+              🛒 Ajouter au panier
+            </button>
+          }
+        </div>
+      </aside>
+      @if (game.name.toLowerCase().includes('cryptid')) {
+        <app-cryptid-puzzle />
+      }
+    </section>
+  </article>
+} @else {
+  <div class="not-found" role="alert">
+    <h1>Jeu non trouvé</h1>
+    <p>Le jeu de société demandé n'existe pas.</p>
+    <a routerLink="/board-games" class="back-link">Retour à la liste des jeux</a>
+  </div>
+}

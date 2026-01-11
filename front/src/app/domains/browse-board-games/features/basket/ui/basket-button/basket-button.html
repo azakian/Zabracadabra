@@ -1,0 +1,10 @@
+<a
+  routerLink="/basket"
+  class="basket-button"
+  aria-label="Voir le panier, {{ basketStore.totalItems() }} article(s)"
+>
+  🛒
+  @if (basketStore.totalItems() > 0) {
+    <span class="badge" aria-hidden="true">{{ basketStore.totalItems() }}</span>
+  }
+</a>

@@ -1,0 +1,37 @@
+@if (isOpen()) {
+  <div
+    class="modal-backdrop"
+    (click)="onBackdropClick($event)"
+    (keydown.escape)="onClose()"
+    tabindex="-1"
+    role="presentation"
+  >
+    <div class="modal-content" role="dialog" aria-labelledby="enigma-title">
+      <button type="button" class="close-btn" (click)="onClose()" aria-label="Fermer">×</button>
+
+      <div class="enigma-header">
+        <span class="enigma-icon">🧩</span>
+        <h3 id="enigma-title">Énigme</h3>
+      </div>
+
+      <p class="enigma-question" [innerHTML]="enigma().question"></p>
+
+      <form (ngSubmit)="onSubmit()" class="enigma-form">
+        <input
+          type="text"
+          [(ngModel)]="userAnswer"
+          name="answer"
+          class="answer-input"
+          [class.shake]="isWrong()"
+          placeholder="Votre réponse"
+          autocomplete="off"
+        />
+        <button type="submit" class="submit-btn">Valider</button>
+      </form>
+
+      @if (showHint()) {
+        <p class="enigma-hint">💡 {{ enigma().hintOnWrong }}</p>
+      }
+    </div>
+  </div>
+}

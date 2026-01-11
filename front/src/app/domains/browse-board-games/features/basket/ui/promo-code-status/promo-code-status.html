@@ -1,0 +1,17 @@
+@if (promotion(); as promo) {
+  @if (!promo.isValid) {
+    <div class="error-callout" role="alert">
+      <span class="error-icon">⚠</span>
+      <span class="error-message">
+        {{ promo.hint || "Ce code n'est pas valide, tu as bien tout regardé ?" }}
+      </span>
+    </div>
+  } @else {
+    <div class="success-callout" role="status">
+      <span class="success-icon">✓</span>
+      <span class="success-message">
+        {{ promo.hint || 'Code promo appliqué avec succès !' }}
+      </span>
+    </div>
+  }
+}
