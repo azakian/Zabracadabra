@@ -42,6 +42,12 @@
   }
 
   <section class="page-content">
+    <div class="promo-hint">
+      <span class="promo-tooltip" role="status">
+        💡 Ton code promo se trouve sur l'image qui t'a permis de trouver l'adresse du site !
+      </span>
+    </div>
+
     @if (basketStore.isEmpty()) {
       <div class="empty-state" role="status">
         <p>Votre panier est vide</p>
@@ -92,7 +98,9 @@
 
       <footer class="basket-footer">
         <div class="promo-section">
-          <label for="promo-code" class="visually-hidden">Code promo</label>
+          <div class="promo-header">
+            <label for="promo-code" class="visually-hidden">Code promo</label>
+          </div>
           <div class="promo-input-group">
             <input
               id="promo-code"
