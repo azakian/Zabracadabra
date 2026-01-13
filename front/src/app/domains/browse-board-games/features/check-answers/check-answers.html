@@ -1,0 +1,66 @@
+<div class="check-answers-page">
+  <header class="page-header">
+    <a routerLink="/games" class="back-link" aria-label="Retour aux jeux">← Retour</a>
+    <h1>Vérifier mes réponses</h1>
+    <p class="subtitle">Teste tes réponses aux différentes énigmes</p>
+  </header>
+
+  <section class="page-content">
+    <ul class="answers-list" aria-label="Liste des énigmes">
+      @for (answer of answers(); track answer.code) {
+        <li class="answer-item">
+          <div class="answer-header">
+            <h2 class="answer-label">{{ answer.label }}</h2>
+          </div>
+
+          <div class="answer-form">
+            <div class="input-group">
+              <label [for]="'answer-' + answer.code" class="visually-hidden">
+                Réponse pour {{ answer.label }}
+              </label>
+              <input
+                [id]="'answer-' + answer.code"
+                type="text"
+                class="answer-input"
+                placeholder="Ta réponse..."
+                [ngModel]="answer.userAnswer"
+                (ngModelChange)="updateAnswer(answer.code, $event)"
+                [attr.aria-describedby]="answer.result ? 'result-' + answer.code : null"
+              />
+              <button
+                type="button"
+                class="check-btn"
+                (click)="checkAnswer(answer.code)"
+                [disabled]="!answer.userAnswer || answer.loading"
+              >
+                @if (answer.loading) {
+                  ⏳
+                } @else {
+                  Vérifier
+                }
+              </button>
+            </div>
+
+            @if (answer.result; as result) {
+              <div
+                [id]="'result-' + answer.code"
+                class="result-callout"
+                [class.success]="result.is_valid"
+                [class.error]="!result.is_valid"
+                role="status"
+              >
+                @if (result.is_valid) {
+                  <span class="result-icon">✓</span>
+                  <p>{{ result.response ?? 'Bonne réponse !' }}</p>
+                } @else {
+                  <span class="result-icon">✗</span>
+                  <p>{{ result.hint ?? "Ce n'est pas la bonne réponse, réessaie !" }}</p>
+                }
+              </div>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+</div>

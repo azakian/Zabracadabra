@@ -22,6 +22,14 @@ export const routes: Routes = [
     canActivate: [desktopOnlyGuard],
   },
   {
+    path: 'check-answers',
+    loadComponent: () =>
+      import('./domains/browse-board-games/features/check-answers/check-answers').then(
+        (m) => m.CheckAnswers,
+      ),
+    canActivate: [desktopOnlyGuard],
+  },
+  {
     path: 'games/:id',
     loadComponent: () =>
       import('./domains/browse-board-games/features/board-game-detail/board-game-detail').then(
